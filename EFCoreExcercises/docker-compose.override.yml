@@ -1,0 +1,15 @@
+services:
+  db:
+    ports:
+      - "5432:5432"
+
+  efcoreexcercises:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      # Reach the database by its compose service name "db", not localhost.
+      # This overrides ConnectionStrings:Postgres from appsettings.json.
+      - ConnectionStrings__Postgres=Host=db;Port=5432;Database=efcoreexcercises;Username=postgres;Password=postgres
+      - DatabaseProvider=Postgres
+    ports:
+      - "8080:8080"
